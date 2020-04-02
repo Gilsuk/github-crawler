@@ -30,7 +30,7 @@ public class StatementFactory implements AutoCloseable {
 		
 		PreparedStatement statement = statements.get(statementId);
 		
-		if (statement == null) {
+		if (statement == null || statement.isClosed()) {
 			String sql = readSqlfromXML(statementId);
 			statement = connection.prepareStatement(sql);
 			statements.put(statementId, statement);

@@ -1,6 +1,7 @@
 package crawling;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -10,9 +11,11 @@ import org.jsoup.nodes.Document;
 public abstract class Crawler<T> implements Iterator<List<T>> {
 	
 	private String urlToCrawl;
+	private int attempt;
 	
-	public Crawler(String url) {
+	public Crawler(String url, int attempt) {
 		this.urlToCrawl = url;
+		this.attempt = attempt;
 	}
 	
 	@Override
@@ -22,18 +25,33 @@ public abstract class Crawler<T> implements Iterator<List<T>> {
 
 	@Override
 	public List<T> next() {
-		Document doc = crawl();
-		List<T> items = parse(doc);
-		this.urlToCrawl = setNextUrl(doc);
-		return items;
+		Document doc;
+		try {
+			doc = crawl(attempt);
+			List<T> items = parse(doc);
+			this.urlToCrawl = setNextUrl(doc);
+			return items;
+		} catch (TooManyAttemptException e) {
+			e.printStackTrace();
+			return new ArrayList<T>();
+		}
+		
 	}
 	
-	private Document crawl() {
+	private Document crawl(int attempt) throws TooManyAttemptException {
+		
+		if (attempt < 1) throw new TooManyAttemptException();
+		
 		try {
 			return Jsoup.connect(urlToCrawl).get();
-		} catch (IOException e) { e.printStackTrace(); }
-		
-		return new Document(null);
+		} catch (IOException e) { 
+			System.out.printf("접속오류, 남은 재시도 횟수: %d, %s\n", attempt, urlToCrawl );
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e1) { e1.printStackTrace(); }
+			
+			return crawl(--attempt);
+		}
 	}
 
 	/**

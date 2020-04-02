@@ -10,13 +10,14 @@ import org.jsoup.select.Elements;
 
 public class RepoCrawler extends Crawler<Repo> {
 
-	public RepoCrawler(String url) {
-		super(url);
+	public RepoCrawler(String url, int attempt) {
+		super(url, attempt);
 	}
 
 	@Override
 	protected String setNextUrl(Document doc) {
-		Elements nextAnchor = doc.select("a.next_page");
+		Element nextAnchor = doc.selectFirst("a.next_page");
+		if (nextAnchor == null) return null;
 		String relUrl = nextAnchor.attr("href");
 		return "https://github.com" + relUrl;
 	}

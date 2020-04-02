@@ -38,4 +38,25 @@
 		PRIMARY KEY ("id", "name")
 	)
 	</query>
+	
+	<query id="insertRepo">
+	INSERT INTO "repo" (title, description, star)
+	VALUES (?, ?, ?)
+	</query>
+	
+	<query id="selectRepoByTitle">
+	SELECT id FROM "repo"
+	WHERE title = ?
+	</query>
+
+	<query id="insertTag">
+	INSERT INTO "tag" (id, name)
+	VALUES (?, ?)
+	</query>
+
+	<query id="insertLang">
+	INSERT INTO "lang" (id, name)
+	VALUES (?, ?)
+	</query>
+
 </queries>

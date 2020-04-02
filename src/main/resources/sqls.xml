@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE queries [
+<!ELEMENT queries (query+)>
+<!ELEMENT query (#PCDATA)>
+<!ATTLIST query id ID #IMPLIED>
+]>
+
+<queries>
+	<query id="createTableRepo">
+	CREATE TABLE "repo" (
+		"id" INTEGER PRIMARY KEY,
+		"title" TEXT NOT NULL UNIQUE,
+		"star" INTEGER NOT NULL DEFAULT 0,
+		"description" TEXT NOT NULL DEFAULT ''
+	)
+	</query>
+	
+	<query id="createTableLang">
+	CREATE TABLE "lang" (
+		"id"	INTEGER,
+		"name"	TEXT,
+		FOREIGN KEY("id") 
+			REFERENCES "repo"("id") 
+				ON DELETE CASCADE 
+				ON UPDATE NO ACTION,
+		PRIMARY KEY ("id", "name")
+	)
+	</query>
+
+	<query id="createTableTag">
+	CREATE TABLE "tag" (
+		"id"	INTEGER,
+		"name"	TEXT,
+		FOREIGN KEY("id") 
+			REFERENCES "repo"("id") 
+				ON DELETE CASCADE 
+				ON UPDATE NO ACTION,
+		PRIMARY KEY ("id", "name")
+	)
+	</query>
+</queries>

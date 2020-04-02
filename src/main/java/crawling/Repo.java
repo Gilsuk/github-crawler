@@ -2,7 +2,7 @@ package crawling;
 
 import java.util.List;
 
-public class Item {
+public class Repo {
 	
 	private int id;
 	private String title;

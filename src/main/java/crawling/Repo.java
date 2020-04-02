@@ -8,8 +8,14 @@ public class Repo {
 	private String title;
 	private int star;
 	private String description;
-	private List<String> lang;
-	private List<String> tag;
+	private List<String> langs;
+	private List<String> tags;
+
+	@Override
+	public String toString() {
+		return "Repo [id=" + id + ", title=" + title + ", star=" + star + ", description=" + description + ", langs="
+				+ langs + ", tags=" + tags + "]";
+	}
 
 	public int getId() {
 		return id;
@@ -35,17 +41,17 @@ public class Repo {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public List<String> getLang() {
-		return lang;
+	public List<String> getLangs() {
+		return langs;
 	}
-	public void setLang(List<String> lang) {
-		this.lang = lang;
+	public void setLangs(List<String> lang) {
+		this.langs = lang;
 	}
-	public List<String> getTag() {
-		return tag;
+	public List<String> getTags() {
+		return tags;
 	}
-	public void setTag(List<String> tag) {
-		this.tag = tag;
+	public void setTags(List<String> tag) {
+		this.tags = tag;
 	}
 
 }

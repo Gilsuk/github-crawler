@@ -5,7 +5,7 @@ github 검색화면의 html을 파싱하고 db에 적재한다.
 JAVA, SQLite, Jsoup
 
 ## erd
-![db-scheme](http://drive.google.com/uc?export=view&id=1S2lr87Htd0C6Njfv_o3tq1npItX49J7M)
+![db-scheme](https://user-images.githubusercontent.com/43606714/78527756-bdf94680-7818-11ea-8199-3ee8592a2d26.png)
 
 ## 사용법
 ~~~ bash
